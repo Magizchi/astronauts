@@ -5,14 +5,13 @@ networks:
 
 services:
   node:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
     container_name: elevenLabs
+    build:
+      dockerfile: docker/Dockerfile
     ports:
       - 3000:3000
     volumes:
-      - .:/workspaces
+      - .:/usr/src/app
     networks:
       - elevenLabs_network
 
