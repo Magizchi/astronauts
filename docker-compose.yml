@@ -1,8 +1,5 @@
 version: "3.3"
 
-networks:
-  elevenLabs_network:
-
 services:
   node:
     container_name: elevenLabs
@@ -11,9 +8,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/usr/src/app
-    networks:
-      - elevenLabs_network
+      - .:/elevenLabs
 
   db:
     image: mariadb:10.6.10-focal
@@ -27,8 +22,6 @@ services:
       - db:/var/lib/mysql
     ports:
       - "3306:3306"
-    networks:
-      - elevenLabs_network
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -42,8 +35,6 @@ services:
       - "8080:80"
     depends_on:
       - db
-    networks:
-      - elevenLabs_network
 
 volumes:
   db:
