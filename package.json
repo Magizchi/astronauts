@@ -2,12 +2,13 @@
   "name": "elevenlabs-test",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typeorm": "npx typeorm-ts-node-esm",
+    "dev": "concurrently -k -n \"Typescript.Node\" -p \"[{name}]\" -c \"blue.green\" \"tsc --watch\" \"nodemon dist/server.js\"",
+    "migration:run": "npm run typeorm migration:run -- -d src/app-data-source.ts"
   },
   "repository": {
     "type": "git",
@@ -21,10 +22,14 @@
   "homepage": "https://github.com/Magizchi/eleven-labs#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "concurrently": "^7.6.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.1",
-    "mariadb": "^3.1.0"
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.12"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

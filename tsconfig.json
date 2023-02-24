@@ -1,0 +1,13 @@
+{
+    "compilerOptions":{
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "module":"NodeNext",
+        "moduleResolution": "nodenext",
+        "target": "ES2020",
+        "sourceMap": true,
+        "lib": ["es5", "es6"], 
+        "outDir": "dist",
+    },
+    "include": ["./src/**/*.ts", "src/app-data-source.ts"]
+}

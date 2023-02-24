@@ -4,7 +4,7 @@ services:
   node:
     container_name: elevenLabs
     build:
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     volumes:
@@ -21,7 +21,7 @@ services:
     volumes:
       - db:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -32,7 +32,7 @@ services:
     volumes:
       - phpmyadmin:/sessions
     ports:
-      - "8080:80"
+      - 8080:80
     depends_on:
       - db
 
