@@ -4,15 +4,14 @@ import { Planets } from "../entities/planet.entity.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
     try {
-        const planets = await myDataSource.getRepository(Planets).find()
-        res.status(200).json(planets)
+        const planets = await myDataSource.getRepository(Planets).find();
+        res.status(200).json(planets);
     } catch (err) {
-        res.status(400)
-        throw 'Message:' + err
+        res.status(400);
+        throw 'Message:' + err;
     }
-
-})
+});
 
 export default router;

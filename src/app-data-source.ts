@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import * as  mysql from "mysql"
 import dotenv from "dotenv";
 import { Entities } from './entities/index.js';
 import { Migrations } from './migrations/index.js';
@@ -13,10 +12,9 @@ const ENV = {
     password: process.env.DB_PASSWORD ?? "",
     dataBase: process.env.DB_DATABASE ?? "astronaute",
     synchronize: process.env.DB_SYNCHRO === "true" ? true : false
-}
+};
 
 const dataSource = new DataSource({
-    driver: mysql,
     type: "mariadb",
     host: ENV.host,
     port: ENV.port,
@@ -27,6 +25,6 @@ const dataSource = new DataSource({
     migrations: [...Migrations],
     logging: false,
     synchronize: ENV.synchronize,
-})
+});
 
-export default dataSource
+export default dataSource;

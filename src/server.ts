@@ -13,11 +13,11 @@ dotenv.config({ path: "../env" });
 myDataSource
   .initialize()
   .then(() => {
-    console.log("Data Source has been initialized!")
+    console.info("Data Source has been initialized!");
   })
   .catch((err) => {
-    console.error("Error during Data Source initialization:", err)
-  })
+    console.error("Error during Data Source initialization:", err);
+  });
 
 
 const app = express();
