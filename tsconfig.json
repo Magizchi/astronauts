@@ -9,5 +9,5 @@
         "lib": ["es5", "es6"], 
         "outDir": "dist",
     },
-    "include": ["./src/**/*.ts", "src/app-data-source.ts"]
+    "include": ["src/**/*.ts", "src/app-data-source.ts"]
 }
