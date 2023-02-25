@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, Relation } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, Relation, ManyToOne } from "typeorm";
 import { Planets } from "./planet.entity.js";
 
 @Entity()
@@ -9,7 +9,7 @@ export class Astronautes {
     @Column()
     name: string;
 
-    @OneToOne(() => Planets, planet => planet.id, { nullable: true })
+    @ManyToOne(() => Planets, planet => planet.id, { nullable: true })
     @JoinColumn()
     planet: Relation<Planets>;
 }
