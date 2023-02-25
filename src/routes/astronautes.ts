@@ -32,11 +32,7 @@ router.get("/:id", async (req, res) => {
 
 router.post('/create', async (req: Request, res: Response) => {
   try {
-    const body = {
-      name: req.body.name,
-      planet: req.body.planet
-    };
-    const astronautes = AstronautesRepository.create(body);
+    const astronautes = AstronautesRepository.create(req.body);
     const result = await AstronautesRepository.save(astronautes);
     res.status(200).json(result);
 
