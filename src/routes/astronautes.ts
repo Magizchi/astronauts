@@ -55,7 +55,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
 router.delete('/:id', async (req: Request, res: Response) => {
   try {
     await AstronautesRepository.delete(+req.params.id);
-    res.status(200);
+    res.status(200).send();
   } catch (err) {
     res.status(400);
     throw err;
