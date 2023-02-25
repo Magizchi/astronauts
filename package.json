@@ -8,7 +8,8 @@
     "build": "tsc",
     "typeorm": "npx typeorm-ts-node-esm",
     "dev": "concurrently -k -n \"Typescript.Node\" -p \"[{name}]\" -c \"blue.green\" \"tsc --watch\" \"nodemon dist/server.js\"",
-    "migration:run": "npm run typeorm migration:run -- -d src/app-data-source.ts"
+    "migration:run": "npm run typeorm migration:run -- -d src/app-data-source.ts",
+    "migration:create": "npm run typeorm migration:create"
   },
   "repository": {
     "type": "git",
