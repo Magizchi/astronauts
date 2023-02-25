@@ -8,7 +8,11 @@ const AstronautesRepository = myDataSource.getRepository(Astronautes);
 
 router.get('/', async (_req: Request, res: Response) => {
   try {
-    const astronautes = await AstronautesRepository.find();
+    const astronautes = await AstronautesRepository.find({
+      relations: {
+        planet: true
+      }
+    });
     res.status(200).json(astronautes);
   } catch (err) {
     res.status(400);
@@ -28,7 +32,11 @@ router.get("/:id", async (req, res) => {
 
 router.post('/create', async (req: Request, res: Response) => {
   try {
-    const astronautes = AstronautesRepository.create(req.body);
+    const body = {
+      name: req.body.name,
+      planet: req.body.planet
+    };
+    const astronautes = AstronautesRepository.create(body);
     const result = await AstronautesRepository.save(astronautes);
     res.status(200).json(result);
 
