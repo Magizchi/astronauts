@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from "typeorm";
+import { Astronautes } from "./astronaute.entity.js";
 
 @Entity()
 export class Planets {
@@ -10,4 +11,8 @@ export class Planets {
 
     @Column({ nullable: true })
     image: string;
+
+    @OneToOne(() => Astronautes, atronaut => atronaut.planet)
+    astronaut: Astronautes;
+
 }
