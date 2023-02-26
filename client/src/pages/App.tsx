@@ -29,7 +29,11 @@ const App = () => {
   }, []);
 
   const onSubmit = async () => {
-    const { status } = await axios.post("http://localhost:4000/api/astronautes/create", { ...astronautForm });
+    const body = {
+      name: astronautForm.name,
+      planet: astronautForm.planet.id,
+    };
+    const { status } = await axios.post("http://localhost:4000/api/astronautes/create", body);
 
     if (status) {
       setAstronautForm(AstronautBuilder);
@@ -45,7 +49,7 @@ const App = () => {
   const updateAstronaut = async (astronauts: any) => setAstronautForm(astronauts);
 
   return (
-    <section className="bg-red-500 h-screen w-screen flex">
+    <section className="container mx-auto  h-screen w-screen flex justify-center items-center">
       <form className="flex flex-col justify-center w-96 border-2 h-96 bg-bleu-600 p-5">
         <Input
           title="Astronaut"
@@ -56,33 +60,34 @@ const App = () => {
         />
         <Select
           label="Planete"
+          placeholder="Choisir"
           options={options}
           value={astronautForm?.planet?.id}
           onChange={({ target }) =>
             setAstronautForm((curr) => ({ ...curr, planet: { ...curr.planet, id: +target.value } }))
           }
         />
-        <Button type="button" onClick={() => onSubmit()}>
+        <Button type="button" className="bg-blue-600 text-white font-bold m-3 p-2" onClick={() => onSubmit()}>
           {astronautForm.id ? "Modifier" : "Sauvegarder"}
         </Button>
       </form>
       <div>
         {astronauts.map((astronaut) => (
-          <div key={astronaut.id} className="relative border m-1 p-1 flex items-center">
-            <Button
-              onClick={() => removeAstronaut(astronaut)}
-              className="p-0 m-0 leading-none absolute top-0 right-0 rounded-full bg-green-700 w-5 h-5 text-sm flex justify-center items-center"
-            >
-              x
-            </Button>
-            <Button
-              onClick={() => updateAstronaut(astronaut)}
-              className="p-0 m-0 leading-none absolute bottom-0 right-0 rounded-full bg-blue-600 w-5 h-5 text-sm flex justify-center items-center"
-            >
-              U
-            </Button>
-            <img className="w-14" src={astronaut.planet.image} />
-            <span>{astronaut.name}</span>
+          <div className="flex items-center">
+            <div key={astronaut.id} className="border m-1 p-1 w-48 flex">
+              <div className="flex items-center">
+                <img className="w-14 mr-5" src={astronaut.planet.image} />
+                <span>{astronaut.name}</span>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <Button onClick={() => removeAstronaut(astronaut)} className="bg-red-400 p-1">
+                Supprimier
+              </Button>
+              <Button onClick={() => updateAstronaut(astronaut)} className="bg-green-300 p-1">
+                Modifier
+              </Button>
+            </div>
           </div>
         ))}
       </div>
