@@ -8,13 +8,15 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 const Select: FunctionComponent<SelectProps> = ({ label = "Select default", options = [], ...props }) => {
   return (
     <>
-      <label htmlFor="selectID">{label}</label>
+      <label htmlFor="selectID" className="text-blue-700">
+        {label}
+      </label>
       <select
-        className="h-10 p-2 bg-transparent border-2 border-white placeholder:text-white rounded-md"
+        className="h-10 p-2 bg-transparent border-2 text-blue-700 border-blue-600 placeholder:text-blue-600 rounded-md"
         id="selectID"
         {...props}
       >
-        <Option value="" label="Choisir" />
+        <Option value="" label="choisir" />
         {options.map((option) => (
           <Option key={option.value} value={option.value} label={option.label} />
         ))}
@@ -31,7 +33,7 @@ interface OptionsProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
 }
 
 const Option: FunctionComponent<OptionsProps> = ({ value, label }) => (
-  <option className="text-white" value={value}>
+  <option className="text-blue-700 bg-white" value={value}>
     {label}
   </option>
 );
