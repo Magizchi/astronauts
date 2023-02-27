@@ -81,7 +81,7 @@ const App = () => {
       </form>
       <div>
         {astronauts.map((astronaut) => (
-          <div className="flex items-center">
+          <div key={astronaut.id} className="flex items-center">
             <div key={astronaut.id} className="border m-1 p-1 w-48 flex">
               <div className="flex items-center">
                 <img className="w-14 mr-5" src={astronaut.planet.image} />
