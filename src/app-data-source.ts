@@ -24,7 +24,7 @@ const dataSource = new DataSource({
     entities: [...Entities],
     migrations: [...Migrations],
     logging: false,
-    synchronize: ENV.synchronize,
+    synchronize: false,
 });
 
 export default dataSource;
