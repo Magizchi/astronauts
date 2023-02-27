@@ -6,11 +6,11 @@ import Select from "../components/atoms/select";
 import useArrayHook from "../hooks/useArray";
 
 const AstronautBuilder = { name: "", planet: { id: 0, name: "", image: "" }, id: 0 };
-type AstroForm = { name: string; planet: { id: number; name: string; image: string }; id: number };
+type AstroForm = {id:number, name: string; planet: { id: number; name: string; image: string };  };
 const App = () => {
   const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
   const [astronautForm, setAstronautForm] = useState<AstroForm>(AstronautBuilder);
-  const { array: astronauts, save, remove } = useArrayHook<any>([]);
+  const { array: astronauts, save, remove, update } = useArrayHook<AstroForm>([]);
 
   const GetPlanets = async () => {
     const { data } = await axios.get("http://localhost:4000/api/planets");
@@ -41,12 +41,20 @@ const App = () => {
     }
   };
 
-  const removeAstronaut = async (astronauts: any) => {
+  const removeAstronaut = async (astronauts: AstroForm) => {
     const { status } = await axios.delete("http://localhost:4000/api/astronautes/" + astronauts.id);
     if (status) remove(astronauts.id);
   };
 
-  const updateAstronaut = async (astronauts: any) => setAstronautForm(astronauts);
+  const updateAstronaut = async (astronauts: AstroForm) => {
+    const body = {
+      name: astronautForm.name,
+      id: astronautForm.id,
+      planet: astronautForm.planet.id
+    }
+    const { status } = await axios.patch('http://localhost:4000/api/astronautes/update/' + astronauts.id,body)
+    if (status) update(astronautForm)
+  }
 
   return (
     <section className="container mx-auto  h-screen w-screen flex justify-center items-center">
@@ -67,7 +75,7 @@ const App = () => {
             setAstronautForm((curr) => ({ ...curr, planet: { ...curr.planet, id: +target.value } }))
           }
         />
-        <Button type="button" className="bg-blue-600 text-white font-bold m-3 p-2" onClick={() => onSubmit()}>
+        <Button type="button" className="bg-blue-600 text-white font-bold m-3 p-2" onClick={() => {astronautForm.id ? updateAstronaut(astronautForm):onSubmit()  }}>
           {astronautForm.id ? "Modifier" : "Sauvegarder"}
         </Button>
       </form>
@@ -84,7 +92,7 @@ const App = () => {
               <Button onClick={() => removeAstronaut(astronaut)} className="bg-red-400 p-1">
                 Supprimier
               </Button>
-              <Button onClick={() => updateAstronaut(astronaut)} className="bg-green-300 p-1">
+              <Button onClick={() => setAstronautForm(astronaut)} className="bg-green-300 p-1">
                 Modifier
               </Button>
             </div>
