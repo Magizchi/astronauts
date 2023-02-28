@@ -3,23 +3,25 @@ import { useEffect, useState } from "react";
 import Button from "../components/atoms/button";
 import Input from "../components/atoms/inputs";
 import Select from "../components/atoms/select";
+import { API } from "../constants/API";
 import useArrayHook from "../hooks/useArray";
 
+type typeOptions = { value: string; label: string; image: string }
 const AstronautBuilder = { name: "", planet: { id: 0, name: "", image: "" }, id: 0 };
-type AstroForm = {id:number, name: string; planet: { id: number; name: string; image: string };  };
+type AstroForm = { id: number, name: string; planet: { id: number; name: string; image: string }; };
 const App = () => {
-  const [options, setOptions] = useState<{ value: string; label: string }[]>([]);
+  const [options, setOptions] = useState<typeOptions[]>([]);
   const [astronautForm, setAstronautForm] = useState<AstroForm>(AstronautBuilder);
   const { array: astronauts, save, remove, update } = useArrayHook<AstroForm>([]);
 
   const GetPlanets = async () => {
-    const { data } = await axios.get("http://localhost:4000/api/planets");
-    const planetesOptions = data.map((item: { id: number; name: string }) => ({ value: item.id, label: item.name }));
+    const { data } = await axios.get(API.PLANETS);
+    const planetesOptions = data.map((item: { id: number; name: string; image: string }) => ({ value: item.id, label: item.name, image: item.image }));
     setOptions(planetesOptions);
   };
 
   const GetAstronaut = async () => {
-    const { data } = await axios.get("http://localhost:4000/api/astronautes");
+    const { data } = await axios.get(API.ASTRONAUTES);
     save(data);
   };
 
@@ -33,7 +35,7 @@ const App = () => {
       name: astronautForm.name,
       planet: astronautForm.planet.id,
     };
-    const { status } = await axios.post("http://localhost:4000/api/astronautes/create", body);
+    const { status } = await axios.post(API.CREATE_ASTRONAUTES, body);
 
     if (status) {
       setAstronautForm(AstronautBuilder);
@@ -42,7 +44,7 @@ const App = () => {
   };
 
   const removeAstronaut = async (astronauts: AstroForm) => {
-    const { status } = await axios.delete("http://localhost:4000/api/astronautes/" + astronauts.id);
+    const { status } = await axios.delete(API.ASTRONAUTES + "/" + astronauts.id);
     if (status) remove(astronauts.id);
   };
 
@@ -52,8 +54,15 @@ const App = () => {
       id: astronautForm.id,
       planet: astronautForm.planet.id
     }
-    const { status } = await axios.patch('http://localhost:4000/api/astronautes/update/' + astronauts.id,body)
-    if (status) update(astronautForm)
+    const { status } = await axios.patch(API.UPDATE_ASTRONAUTES + astronauts.id, body)
+    if (status) {
+
+      console.log('as', astronautForm);
+
+      const find = options.find((item) => +item.value === astronautForm.planet.id)
+      const updated = { ...astronautForm, planet: { id: astronautForm.planet.id, name: find?.label ?? "", image: find?.image ?? "" } }
+      update(updated)
+    }
   }
 
   return (
@@ -75,7 +84,7 @@ const App = () => {
             setAstronautForm((curr) => ({ ...curr, planet: { ...curr.planet, id: +target.value } }))
           }
         />
-        <Button type="button" className="bg-blue-600 text-white font-bold m-3 p-2" onClick={() => {astronautForm.id ? updateAstronaut(astronautForm):onSubmit()  }}>
+        <Button type="button" className="bg-blue-600 text-white font-bold m-3 p-2" onClick={() => { astronautForm.id ? updateAstronaut(astronautForm) : onSubmit() }}>
           {astronautForm.id ? "Modifier" : "Sauvegarder"}
         </Button>
       </form>
