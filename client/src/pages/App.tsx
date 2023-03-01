@@ -35,7 +35,7 @@ const App = () => {
       name: astronautForm.name,
       planet: astronautForm.planet.id,
     };
-    const { status } = await axios.post(API.CREATE_ASTRONAUTES, body);
+    const { status } = await axios.post(API.ASTRONAUTES, body);
 
     if (status) {
       setAstronautForm(AstronautBuilder);
@@ -54,7 +54,8 @@ const App = () => {
       id: astronautForm.id,
       planet: astronautForm.planet.id
     }
-    const { status } = await axios.patch(API.UPDATE_ASTRONAUTES + astronauts.id, body)
+
+    const { status } = await axios.patch(API.ASTRONAUTES + '/' + astronauts.id, body)
     if (status) {
       const find = options.find((item) => +item.value === astronautForm.planet.id)
       const updated = { ...astronautForm, planet: { id: astronautForm.planet.id, name: find?.label ?? "", image: find?.image ?? "" } }
@@ -64,6 +65,9 @@ const App = () => {
 
   return (
     <section className="container mx-auto  h-screen w-screen flex justify-center items-center">
+      <div>
+        {options.map(option => <img src={option.image} className="w-24" />)}
+      </div>
       <form className="flex flex-col justify-center w-96 border-2 h-96 bg-bleu-600 p-5">
         <Input
           title="Astronaut"
@@ -85,10 +89,10 @@ const App = () => {
           {astronautForm.id ? "Modifier" : "Sauvegarder"}
         </Button>
       </form>
-      <div>
+      <ul>
         {astronauts.map((astronaut) => (
-          <div key={astronaut.id} className="flex items-center">
-            <div key={astronaut.id} className="border m-1 p-1 w-48 flex">
+          <li key={astronaut.id} className="flex items-center">
+            <div className="border m-1 p-1 w-48 flex">
               <div className="flex items-center">
                 <img className="w-14 mr-5" src={astronaut.planet.image} />
                 <span>{astronaut.name}</span>
@@ -96,15 +100,15 @@ const App = () => {
             </div>
             <div className="flex flex-col">
               <Button onClick={() => removeAstronaut(astronaut)} className="bg-red-400 p-1">
-                Supprimier
+                Supprimer
               </Button>
               <Button onClick={() => setAstronautForm(astronaut)} className="bg-green-300 p-1">
                 Modifier
               </Button>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };
