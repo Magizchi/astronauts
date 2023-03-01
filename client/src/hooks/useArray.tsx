@@ -7,7 +7,12 @@ const useArrayHook = <TItems extends { id: number }>(defaultValue: TItems[]) => 
 
   const push = (element: TItems) => setArray((currArray) => [...currArray, element]);
 
-  const remove = (index: number) => setArray((curr) => curr.slice(1, index));
+  const remove = (id: number) => {
+    const newArray = array.slice();
+    const index = newArray.findIndex((item) => item.id === id);
+    newArray.splice(index, 1)
+    setArray(newArray);
+  };
 
   const clear = () => setArray([]);
 
