@@ -1,10 +1,10 @@
 import { Router } from "express";
 import Planets from './planets.js';
-import Astronautes from './astronautes.js';
+import Astronauts from './astronauts.js';
 
 const router = Router();
 
 router.use("/planets", Planets);
-router.use("/astronautes", Astronautes);
+router.use("/astronautes", Astronauts);
 
 export default router;

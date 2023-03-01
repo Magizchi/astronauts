@@ -1,10 +1,10 @@
 import { Router, Request, Response } from "express";
 import myDataSource from "../app-data-source.js";
-import { Astronautes } from "../entities/astronaute.entity.js";
+import { Astronaut } from "../entities/astronaut.entity.js";
 
 
 const router = Router();
-const AstronautesRepository = myDataSource.getRepository(Astronautes);
+const AstronautesRepository = myDataSource.getRepository(Astronaut);
 
 router.post('/', async (req: Request, res: Response) => {
   try {
@@ -38,7 +38,7 @@ router.get('/', async (_req: Request, res: Response) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const response = await myDataSource.getRepository(Astronautes).find({ where: { id: +req.params.id } });
+    const response = await myDataSource.getRepository(Astronaut).find({ where: { id: +req.params.id } });
     res.status(200).json(response);
   } catch (err) {
     res.status(400);
