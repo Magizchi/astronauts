@@ -6,6 +6,22 @@ import { Astronautes } from "../entities/astronaute.entity.js";
 const router = Router();
 const AstronautesRepository = myDataSource.getRepository(Astronautes);
 
+router.post('/', async (req: Request, res: Response) => {
+  try {
+    if (req.body.name === '' || req.body.planet === null) {
+      return res.status(403).json({ message: "Valeur incorrect" });
+    }
+    const astronautes = AstronautesRepository.create(req.body);
+    const result = await AstronautesRepository.save(astronautes);
+    res.status(200).json(result);
+
+  } catch (err) {
+    res.status(400);
+    throw 'Message' + err;
+  }
+});
+
+
 router.get('/', async (_req: Request, res: Response) => {
   try {
     const astronautes = await AstronautesRepository.find({
@@ -30,20 +46,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post('/create', async (req: Request, res: Response) => {
-  try {
-    if (req.body.name === '' || req.body.planet === null) {
-      return res.status(403).json({ message: "Valeur incorrect" });
-    }
-    const astronautes = AstronautesRepository.create(req.body);
-    const result = await AstronautesRepository.save(astronautes);
-    res.status(200).json(result);
-
-  } catch (err) {
-    res.status(400);
-    throw 'Message' + err;
-  }
-});
 
 router.patch('/:id', async (req: Request, res: Response) => {
   try {
