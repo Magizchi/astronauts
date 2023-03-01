@@ -45,7 +45,7 @@ router.post('/create', async (req: Request, res: Response) => {
   }
 });
 
-router.patch('/update/:id', async (req: Request, res: Response) => {
+router.patch('/:id', async (req: Request, res: Response) => {
   try {
     const astronautes = await AstronautesRepository.update(+req.params.id, req.body);
     res.status(200).json(astronautes);
