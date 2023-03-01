@@ -56,9 +56,6 @@ const App = () => {
     }
     const { status } = await axios.patch(API.UPDATE_ASTRONAUTES + astronauts.id, body)
     if (status) {
-
-      console.log('as', astronautForm);
-
       const find = options.find((item) => +item.value === astronautForm.planet.id)
       const updated = { ...astronautForm, planet: { id: astronautForm.planet.id, name: find?.label ?? "", image: find?.image ?? "" } }
       update(updated)
