@@ -1,4 +1,4 @@
-import { Planets } from "./planet.entity.js";
-import { Astronautes } from "./astronaute.entity.js";
+import { Planet } from "./planet.entity.js";
+import { Astronaut } from "./astronaut.entity.js";
 
-export const Entities = [Planets, Astronautes];
+export const Entities = [Planet, Astronaut];

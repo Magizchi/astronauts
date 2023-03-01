@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Astronautes } from "./astronaute.entity.js";
+import { Astronaut } from "./astronaut.entity.js";
 
-@Entity()
-export class Planets {
+@Entity("planets")
+export class Planet {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,7 +12,7 @@ export class Planets {
     @Column({ nullable: true })
     image: string;
 
-    @OneToMany(() => Astronautes, atronaut => atronaut.planet)
-    astronaut: Astronautes;
+    @OneToMany(() => Astronaut, atronaut => atronaut.planet)
+    astronaut: Astronaut;
 
 }

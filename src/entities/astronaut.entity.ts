@@ -1,15 +1,15 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, Relation, ManyToOne } from "typeorm";
-import { Planets } from "./planet.entity.js";
+import { Planet } from "./planet.entity.js";
 
-@Entity()
-export class Astronautes {
+@Entity("astronauts")
+export class Astronaut {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     name: string;
 
-    @ManyToOne(() => Planets, planet => planet.id, { nullable: true })
+    @ManyToOne(() => Planet, planet => planet.id, { nullable: true })
     @JoinColumn()
-    planet: Relation<Planets>;
+    planet: Relation<Planet>;
 }
