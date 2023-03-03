@@ -5,6 +5,6 @@ import Astronauts from './astronauts.js';
 const router = Router();
 
 router.use("/planets", Planets);
-router.use("/astronautes", Astronauts);
+router.use("/astronauts", Astronauts);
 
 export default router;

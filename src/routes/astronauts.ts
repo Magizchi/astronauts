@@ -9,14 +9,14 @@ const AstronautesRepository = myDataSource.getRepository(Astronaut);
 router.post('/', async (req: Request, res: Response) => {
   try {
     if (req.body.name === '' || req.body.planet === null) {
-      return res.status(403).json({ message: "Valeur incorrect" });
+      return res.status(400).json({ message: "Valeur incorrect" });
     }
     const astronautes = AstronautesRepository.create(req.body);
     const result = await AstronautesRepository.save(astronautes);
     res.status(200).json(result);
 
   } catch (err) {
-    res.status(400);
+    res.status(500);
     throw 'Message' + err;
   }
 });
@@ -31,17 +31,17 @@ router.get('/', async (_req: Request, res: Response) => {
     });
     res.status(200).json(astronautes);
   } catch (err) {
-    res.status(400);
+    res.status(500);
     throw err;
   }
 });
 
 router.get("/:id", async (req, res) => {
   try {
-    const response = await myDataSource.getRepository(Astronaut).find({ where: { id: +req.params.id } });
+    const response = await AstronautesRepository.find({ where: { id: +req.params.id } });
     res.status(200).json(response);
   } catch (err) {
-    res.status(400);
+    res.status(500);
     throw err;
   }
 });
@@ -52,7 +52,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
     const astronautes = await AstronautesRepository.update(+req.params.id, req.body);
     res.status(200).json(astronautes);
   } catch (err) {
-    res.status(400);
+    res.status(500);
     throw err;
   }
 });
@@ -62,7 +62,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     await AstronautesRepository.delete(+req.params.id);
     res.status(200).send();
   } catch (err) {
-    res.status(400);
+    res.status(500);
     throw err;
   }
 });
