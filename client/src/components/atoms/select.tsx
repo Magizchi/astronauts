@@ -16,7 +16,7 @@ const Select: FunctionComponent<SelectProps> = ({ label = "Select default", opti
         id="selectID"
         {...props}
       >
-        <Option value="" label="choisir" />
+        <Option value="" label="Select a planet" className="text-gray-400" disabled selected />
         {options.map((option) => (
           <Option key={option.value} value={option.value} label={option.label} />
         ))}
@@ -32,8 +32,8 @@ interface OptionsProps extends React.OptionHTMLAttributes<HTMLOptionElement> {
   label: string;
 }
 
-const Option: FunctionComponent<OptionsProps> = ({ value, label }) => (
-  <option className="text-blue-700 bg-white" value={value}>
+const Option: FunctionComponent<OptionsProps> = ({ value, label, ...props }) => (
+  <option className="text-blue-700 bg-white" value={value} {...props}>
     {label}
   </option>
 );
