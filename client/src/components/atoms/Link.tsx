@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react';
+import { Link as LinkRouter } from "react-router-dom";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     variant: "solid" | "outline";
@@ -9,8 +10,8 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export const Link: FunctionComponent<LinkProps> = ({ variant, to, children }) => {
     return (
-        <a
-            href={to}
+        <LinkRouter
+            to={to}
             className={classNames(
                 "block w-full rounded px-12 py-3 text-sm font-medium shadow focus:outline-none focus:ring sm:w-auto",
                 {
@@ -20,8 +21,6 @@ export const Link: FunctionComponent<LinkProps> = ({ variant, to, children }) =>
             )}
         >
             {children}
-        </a>
-
-
+        </LinkRouter>
     )
 }
