@@ -9,7 +9,7 @@ router.get('/', async (_req, res) => {
         const planets = await myDataSource.getRepository(Planet).find();
         res.status(200).json(planets);
     } catch (err) {
-        res.status(400);
+        res.status(500);
         throw 'Message:' + err;
     }
 });
