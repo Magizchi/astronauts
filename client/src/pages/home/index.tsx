@@ -17,7 +17,7 @@ const Home = () =>
                     tenetur fuga ducimus numquam ea!
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4 text-center">
-                    <Link to={PATH.COMPANIES} variant='solid'>Yes, i'm ready</Link>
+                    <Link to={PATH.COMPANIES + "/spacex"} variant='solid'>Yes, i'm ready</Link>
                     <Link to={PATH.DOIT} variant='outline'>Not yet</Link>
                 </div>
             </div>
