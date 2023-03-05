@@ -1,0 +1,1 @@
+export type Navigation = { name: string; url: string }
