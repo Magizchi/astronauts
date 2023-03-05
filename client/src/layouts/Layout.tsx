@@ -1,10 +1,25 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { API } from '../constants/API';
+import { Navigation } from '../models/navigation';
 import Header from './Header';
 
 const Layout = () => {
+    const [navigation, setnavigation] = useState<Navigation[]>([])
+
+    useEffect(() => {
+        const getNavigation = async () => {
+            const { data } = await axios.get(API.COMPANY + '/navigation')
+            setnavigation(data)
+
+        }
+        getNavigation()
+    }, [])
+
     return (
         <>
-            <Header />
+            <Header navigation={navigation} />
             <Outlet />
             <footer className="w-full text-center text-white bg-inherit">Rajanan.dev - 2023</footer>
         </>
