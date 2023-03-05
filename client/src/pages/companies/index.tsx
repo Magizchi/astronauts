@@ -22,12 +22,13 @@ const Companies = () => {
     return (
         <section className="h-screen px-4 mx-auto sm:py-12 sm:px-6 lg:px-8 bg-black">
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
-                <div className="grid p-6 bg-gray-100 rounded sm:p-8">
-                    <div className="max-w-md mx-auto text-center lg:text-left">
+                <div className="relative grid p-6 rounded sm:p-8">
+                    <div className="absolute inset-0 rounded bg-gray-200 opacity-20 z-0" />
+                    <div className="max-w-md mx-auto text-center lg:text-left z-10">
                         <header className='w-full'>
-                            <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">{company.name}</h2>
+                            <h2 className="text-xl font-bold text-white sm:text-3xl">{company.name}</h2>
                         </header>
-                        <p className="mt-4 text-gray-500">
+                        <p className="mt-4 text-white">
                             {company.article.info}
                         </p>
                     </div>
