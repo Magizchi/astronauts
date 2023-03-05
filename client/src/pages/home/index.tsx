@@ -3,7 +3,7 @@ import { PATH } from '../../constants/Routes';
 
 const Home = () =>
 (
-    <section className="flex justify-between h-screen">
+    <section className="flex justify-between h-screen bg-white">
         <div className="w-1/3 max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8 lg:justify-start">
             <div className="max-w-xl text-center sm:text-left">
                 <h1 className="text-9xl font-extrabold sm:text-5xl">
