@@ -20,11 +20,11 @@ const Companies = () => {
     return <p>loading...</p>;
   }
   return (
-    <section className="z-10  mx-auto bg-black px-4 pb-12 sm:py-12 sm:px-6 lg:h-screen lg:px-8">
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
+    <section className="z-10 mx-auto min-h-screen bg-black px-4 pb-12 sm:py-12 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-4 lg:items-stretch xl:grid-cols-3">
         <div className="relative mt-2 grid rounded p-6 sm:p-8">
           <div className="absolute inset-0 z-0 rounded bg-gray-200 opacity-20" />
-          <div className="z-10 mx-auto text-center lg:max-w-md lg:text-left">
+          <div className="z-10 mx-auto w-full text-center lg:text-left xl:max-w-md">
             <header className="w-full">
               <h2 className="text-xl font-bold text-white sm:text-3xl">{company.name}</h2>
             </header>
